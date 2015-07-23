@@ -34,6 +34,8 @@
             this.numGridSize = new System.Windows.Forms.NumericUpDown();
             this.numCellSize = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.txtTesting = new System.Windows.Forms.TextBox();
+            this.btnRun = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numGridSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCellSize)).BeginInit();
@@ -41,13 +43,13 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(239, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(541, 415);
+            this.pictureBox1.Size = new System.Drawing.Size(541, 437);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             // 
             // label1
             // 
@@ -74,7 +76,7 @@
             this.numGridSize.Size = new System.Drawing.Size(100, 20);
             this.numGridSize.TabIndex = 5;
             this.numGridSize.Value = new decimal(new int[] {
-            10,
+            4,
             0,
             0,
             0});
@@ -82,30 +84,53 @@
             // 
             // numCellSize
             // 
+            this.numCellSize.Enabled = false;
             this.numCellSize.Location = new System.Drawing.Point(68, 38);
             this.numCellSize.Name = "numCellSize";
             this.numCellSize.Size = new System.Drawing.Size(100, 20);
             this.numCellSize.TabIndex = 7;
             this.numCellSize.Value = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             0});
+            this.numCellSize.ValueChanged += new System.EventHandler(this.numCellSize_ValueChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Enabled = false;
             this.label2.Location = new System.Drawing.Point(12, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Cell size:";
             // 
+            // txtTesting
+            // 
+            this.txtTesting.Location = new System.Drawing.Point(15, 175);
+            this.txtTesting.Multiline = true;
+            this.txtTesting.Name = "txtTesting";
+            this.txtTesting.Size = new System.Drawing.Size(201, 238);
+            this.txtTesting.TabIndex = 8;
+            // 
+            // btnRun
+            // 
+            this.btnRun.Location = new System.Drawing.Point(12, 64);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(75, 23);
+            this.btnRun.TabIndex = 9;
+            this.btnRun.Text = "Run";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 439);
+            this.ClientSize = new System.Drawing.Size(834, 461);
+            this.Controls.Add(this.btnRun);
+            this.Controls.Add(this.txtTesting);
             this.Controls.Add(this.numCellSize);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numGridSize);
@@ -130,6 +155,8 @@
         private System.Windows.Forms.NumericUpDown numGridSize;
         private System.Windows.Forms.NumericUpDown numCellSize;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtTesting;
+        private System.Windows.Forms.Button btnRun;
     }
 }
 
