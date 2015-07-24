@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -131,24 +132,28 @@ namespace GameOfLife
 
         private void GetNumOfAlive(Cell cell)
         {
-            int neiboughAlive = 0;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y && l.CellAlive)) neiboughAlive += 1;
-            if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
-            cell.NumOfAlive = neiboughAlive;
-            //if (cell.CellAlive && (neiboughAlive <= 1 || neiboughAlive >= 4))
-            //{
-            //    cell.CellAlive = false;
-            //}
-            //if (!cell.CellAlive && (neiboughAlive == 3))
-            //{
-            //    cell.CellAlive = true;
-            //}
+            //int neiboughAlive = 0;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X - 1 && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y - 1 && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y && l.CellAlive)) neiboughAlive += 1;
+            //if (listOfCells.Any(l => l.CellAddress.X == cell.CellAddress.X + 1 && l.CellAddress.Y == cell.CellAddress.Y + 1 && l.CellAlive)) neiboughAlive += 1;
+            //cell.NumOfAlive = neiboughAlive;
+            cell.NumOfAlive = listOfCells.Count(l => l.CellAddress.X >= cell.CellAddress.X - 1 && l.CellAddress.X <= cell.CellAddress.X + 1
+                && l.CellAddress.Y >= cell.CellAddress.Y - 1 && l.CellAddress.Y <= cell.CellAddress.Y + 1
+                && (l.CellAddress.X != cell.CellAddress.X && l.CellAddress.Y != cell.CellAddress.Y)
+                && l.CellAlive == true);
+            if (cell.CellAlive && (cell.NumOfAlive <= 1 || cell.NumOfAlive >= 4))
+            {
+                cell.CellAlive = false;
+            }
+            if (!cell.CellAlive && (cell.NumOfAlive == 3))
+            {
+                cell.CellAlive = true;
+            }
         }
 
         private void UpdateCells(Cell cell)
@@ -165,8 +170,15 @@ namespace GameOfLife
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            listOfCells.ForEach(GetNumOfAlive);
-            listOfCells.ForEach(UpdateCells);
+            //while (true)
+            //{
+                listOfCells.ForEach(GetNumOfAlive);
+                //listOfCells.ForEach(UpdateCells);
+                pictureBox1.Refresh();
+            //    Thread.Sleep(1000);
+            //}
+            
+            //listOfCells.ForEach(UpdateCells);
             //foreach (Cell cell in listOfCells)
             //{
             //for (int i = 0; i < 8; i++)
@@ -206,7 +218,7 @@ namespace GameOfLife
             //}
 
             //}
-            pictureBox1.Refresh();
+            
         }
     }
 
